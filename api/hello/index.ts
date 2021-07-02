@@ -17,13 +17,19 @@ const httpTrigger: AzureFunction = async function (
   } else {
     const { clientPrincipal } = getUserInfo(req);
 
-    context.res = {
+     context.res = {
       body: `Thanks for logging in ${
-        clientPrincipal.userDetails
-      }. You logged in via ${
-        clientPrincipal.identityProvider
-      } and have the roles ${clientPrincipal.userRoles.join(", ")}`,
+        req.headers["x-ms-client-principal"]
+      }`,
     };
+
+//    context.res = {
+//      body: `Thanks for logging in ${
+//        clientPrincipal.userDetails
+//      }. You logged in via ${
+//        clientPrincipal.identityProvider
+//      } and have the roles ${clientPrincipal.userRoles.join(", ")}`,
+//    };
   }
 };
 
