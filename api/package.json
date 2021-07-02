@@ -17,6 +17,6 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "@aaronpowell/static-web-apps-api-auth": "file:../../static-web-apps-api-auth"
-  }
+    "@aaronpowell/static-web-apps-api-auth": "^0.1.3"
+   }
 }
