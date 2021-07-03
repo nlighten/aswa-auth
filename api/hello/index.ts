@@ -10,13 +10,11 @@ const httpTrigger: AzureFunction = async function (
 ): Promise<void> {
   context.log("HTTP trigger function processed a request.");
 
-  if (!isAuthenticated(req)) {
-    context.res = {
-      body: "You are not logged in at the moment",
-    };
-  } else {
-    const { clientPrincipal } = getUserInfo(req);
-
+  const header = req.headers["x-ms-client-principal"];
+  if (header) {
+    const encoded = Buffer.from(header, "base64");
+    const decoded = encoded.toString("ascii");
+    const clientPrincipal = JSON.parse(decoded);
 
     context.res = {
       body: `Thanks for logging in ${
@@ -25,6 +23,10 @@ const httpTrigger: AzureFunction = async function (
         clientPrincipal.identityProvider
       } and have the roles ${clientPrincipal.userRoles.join(", ")}`,
     };
+  } else {
+    context.res = {
+      body: "You are not logged in at the moment",
+    };  
   }
 };
 
