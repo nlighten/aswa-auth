@@ -1,8 +1,4 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import {
-  getUserInfo,
-  isAuthenticated,
-} from "@aaronpowell/static-web-apps-api-auth";
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
